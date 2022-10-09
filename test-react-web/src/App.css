@@ -10,3 +10,11 @@
       url('./fonts/OrchideaPro-Regular.ttf') format('truetype');
 
 }
+
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto-Regular'), local('Roboto-Regular'),
+      url('./fonts/Roboto-Regular.ttf') format('truetype');
+
+}

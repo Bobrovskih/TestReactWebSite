@@ -1,6 +1,11 @@
 import React from 'react';
+import '../FirstSection/FirstSection.css';
+import Photo1 from './SecondSection_img/julia-d-FlNTu2Bj4Dg-unsplash (1).jpg';
+import Photo2 from './SecondSection_img/taisiia-stupak-viq7xx1boxo-unsplash 1 (1).png';
 
-export default function SecondSection() {
+export default function FirstSection() {
+  /* 1s/2s/ - first section/section section */
+
   return (
     <div className="first-section-container">
       <div className="first-section-container__first-header">
@@ -41,5 +46,6 @@ export default function SecondSection() {
         </div>
       </div>
     </div>
+
   );
 }
