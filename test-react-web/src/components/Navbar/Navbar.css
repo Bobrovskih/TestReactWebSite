@@ -1,0 +1,19 @@
+.navbar {
+ background: linear-gradient(#464341,#010101);
+ width: 100vw;
+ padding: 37px 261px 31px;
+ display: flex;
+ justify-content: space-between;
+}
+
+.navbar__circeya_logo {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar__telephone {
+    color: white;
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px ;
+}
