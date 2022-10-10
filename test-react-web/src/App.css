@@ -5,9 +5,9 @@
 @font-face {
   font-family: 'Orchidea Pro';
   src: local('Orchidea Pro Extra Light'), local('Orchidea-Pro-Extra-Light'),
-      url('./fonts/OrchideaPro-Regular.woff2') format('woff2'),
-      url('./fonts/OrchideaPro-Regular.woff') format('woff'),
-      url('./fonts/OrchideaPro-Regular.ttf') format('truetype');
+    url('./fonts/OrchideaPro-Regular.woff2') format('woff2'),
+    url('./fonts/OrchideaPro-Regular.woff') format('woff'),
+    url('./fonts/OrchideaPro-Regular.ttf') format('truetype');
 
 }
 
@@ -15,18 +15,19 @@
 @font-face {
   font-family: 'Roboto';
   src: local('Roboto-Regular'), local('Roboto-Regular'),
-      url('./fonts/Roboto-Regular.ttf') format('truetype');
+    url('./fonts/Roboto-Regular.ttf') format('truetype');
 
 }
 
 
 .main_container {
-position: relative;
+  position: relative;
 }
 
 .Navbar {
   position: -webkit-sticky;
   position: sticky;
-  top:0;
+  top: 0;
   left: 0;
-  }
+  z-index: 10;
+}

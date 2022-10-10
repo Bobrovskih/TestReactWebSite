@@ -18,9 +18,16 @@
 
 
 .photoslider__slider {
-    display: flex;
     overflow: scroll;
     padding: 123px 261px 160px 261px;
+}
+
+.photoslider__sliderWrap {
+    transition: transform .5s;
+}
+
+.photoslider__images {
+    display: flex;
 }
 
 .photoslider__slider::-webkit-scrollbar {

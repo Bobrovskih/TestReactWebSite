@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import './PhotoSlider.css';
 
 import Photo1 from './PhotoSlider_img/1-jasmin-chew-UBeNYvk6ED0-unsplash.jpg';
@@ -15,21 +16,9 @@ import Photo11 from './PhotoSlider_img/11-andres-vera-CmmYT6Mm948-unsplash 1 (5)
 import Photo12 from './PhotoSlider_img/12-andres-vera-CmmYT6Mm948-unsplash 1 (6).png';
 
 export default function PhotoSlider() {
-  let left = 0;
-  let timer;
-
-  function sliderleft() {
-    const slider = document.getElementsByClassName('photoslider__slider');
-    left -= 100;
-    if (left < -500) {
-      left = 0;
-    }
-    slider.style.left = `${left}px`;
-  }
-  function autoslider() {
-    timer = setTimeout(sliderleft, 5000);
-  }
-  autoslider();
+  const [inViewport, setInViewport] = useState(false);
+  const [translateX, setTranslateX] = useState(0);
+  const [moveCount, setMoveCount] = useState(0);
 
   const imagesSrc = [
     Photo1,
@@ -46,14 +35,55 @@ export default function PhotoSlider() {
     Photo12,
   ];
 
+  const IMAGES_COUNT = imagesSrc.length;
+  const IMAGE_SIZE = 320;
+  const IMAGE_IN_VIEWPORT = 4; // TODO 4.5
+  const IMAGE_PER_MOVE = 2;
+
+  const MOVE_COUNT = (IMAGES_COUNT - IMAGE_IN_VIEWPORT) / IMAGE_PER_MOVE;
+
+  function sliderMove() {
+    setTranslateX(translateX - (IMAGE_SIZE * IMAGE_PER_MOVE));
+    setMoveCount(moveCount + 1);
+  }
+
   const images = imagesSrc.map((src) => (
     <img className="photoslider__slider__Photo" src={src} alt="" key={src} />
   ));
 
+  const photosliderElement = React.createRef();
+
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        setInViewport(true);
+        sliderMove();
+      } else {
+        setInViewport(false);
+        setTranslateX(0);
+      }
+    });
+
+    io.observe(photosliderElement.current);
+  }, []);
+
+  useEffect(() => {
+    if (moveCount < MOVE_COUNT && inViewport) {
+      setTimeout(() => {
+        sliderMove();
+      }, 1500);
+    }
+  }, [translateX]);
+
   return (
     <div className="photoslider">
       <div className="photoslider__header">Lorem ipsum dolor sit amet</div>
-      <div className="photoslider__slider">{ images }</div>
+      <div className="photoslider__slider" ref={photosliderElement}>
+        <div className="photoslider__sliderWrap" style={{ transform: `translateX(${translateX}px)` }}>
+          <div className="photoslider__images">{ images }</div>
+        </div>
+      </div>
     </div>
   );
 }
