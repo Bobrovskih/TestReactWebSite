@@ -9,7 +9,7 @@ import Footer from './Footer/Footer';
 function App() {
   return (
     <div className="main_container">
-      <Navbar />
+      <div className="Navbar"><Navbar /></div>
       <div className="content">
         <FirstSection />
         <PhotoSlider />

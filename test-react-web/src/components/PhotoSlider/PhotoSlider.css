@@ -1,9 +1,9 @@
 .photoslider {
     height: 720px;
-    margin-left: 261px;
 }
 
 .photoslider__header{
+    padding-left: 262px;
     padding-top: 95px;
     font-family: 'Orchidea Pro';
     font-style: normal;
@@ -18,20 +18,24 @@
 
 
  .photoslider__slider {
-    overflow-x: auto;
-    padding: 0 261px;
-    width: 100%;
-    /* overflow-x: auto;
-      padding: 0 261px;
-     width: 100%; */
+    /* overflow-x: auto; */
+    padding: 125px 261px;
+    width: 6000px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow:hidden;
+    gap:38px;
 
 }
 
-/* img {
-    width: 320px;
-    height: 488px;
+.photoslider__slider img{
+float: left;
 }
 
-img + img {
-    margin-left: 20px;
-} */
+.photoslider__slider::after {
+content:"";
+display:block;
+clear: both;
+}
+

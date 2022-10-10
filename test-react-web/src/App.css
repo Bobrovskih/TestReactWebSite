@@ -18,3 +18,15 @@
       url('./fonts/Roboto-Regular.ttf') format('truetype');
 
 }
+
+
+.main_container {
+position: relative;
+}
+
+.Navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top:0;
+  left: 0;
+  }
