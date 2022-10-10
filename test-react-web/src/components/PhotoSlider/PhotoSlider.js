@@ -17,8 +17,7 @@ import Photo12 from './PhotoSlider_img/12-andres-vera-CmmYT6Mm948-unsplash 1 (6)
 
 export default function PhotoSlider() {
   const [inViewport, setInViewport] = useState(false);
-  const [translateX, setTranslateX] = useState(0);
-  const [moveCount, setMoveCount] = useState(0);
+  const [leftPosition, setLeftPosition] = useState(0);
 
   const imagesSrc = [
     Photo1,
@@ -35,57 +34,61 @@ export default function PhotoSlider() {
     Photo12,
   ];
 
-  const IMAGES_COUNT = imagesSrc.length;
-  const IMAGE_SIZE = 320;
-  const IMAGE_IN_VIEWPORT = 4.5;
+  const IMAGE_SIZE = 320 + 40;
   const IMAGE_PER_MOVE = 2;
-  const MAX_FACTOR = 1;
+  const SCROLL_PER_MOVE = IMAGE_SIZE * IMAGE_PER_MOVE;
 
-  const MOVE_COUNT = (IMAGES_COUNT - IMAGE_IN_VIEWPORT) / IMAGE_PER_MOVE;
+  const sliderRef = React.createRef();
+
+  function scrollSlider(left) {
+    sliderRef.current.scrollTo({ left, behavior: 'smooth' });
+  }
 
   function sliderMove() {
-    const remain = MOVE_COUNT - moveCount;
-    const factor = Math.min(remain, MAX_FACTOR);
+    const next = sliderRef.current.scrollLeft + SCROLL_PER_MOVE;
+    scrollSlider(next);
+    setLeftPosition(next);
+  }
 
-    setTranslateX(translateX - (IMAGE_SIZE * IMAGE_PER_MOVE * factor));
-    setMoveCount(moveCount + 1);
+  function checkIfScrolled(element) {
+    return element.scrollWidth - Math.abs(element.scrollLeft) === element.clientWidth;
   }
 
   const images = imagesSrc.map((src) => (
     <img className="photoslider__slider__Photo" src={src} alt="" key={src} />
   ));
 
-  const photosliderElement = React.createRef();
-
   useEffect(() => {
     const io = new IntersectionObserver((entries) => {
       const [entry] = entries;
       if (entry.isIntersecting) {
         setInViewport(true);
-        sliderMove();
       } else {
         setInViewport(false);
-        setTranslateX(0);
       }
     });
 
-    io.observe(photosliderElement.current);
+    io.observe(sliderRef.current);
   }, []);
 
   useEffect(() => {
-    if (moveCount < MOVE_COUNT && inViewport) {
-      setTimeout(() => {
-        sliderMove();
-      }, 1500);
+    if (inViewport) {
+      if (!checkIfScrolled(sliderRef.current)) {
+        setTimeout(() => sliderMove(), 1500);
+      }
+    } else {
+      scrollSlider(0);
     }
-  }, [translateX]);
+  }, [leftPosition, inViewport]);
 
   return (
     <div className="photoslider">
       <div className="photoslider__header">Lorem ipsum dolor sit amet</div>
-      <div className="photoslider__slider" ref={photosliderElement}>
-        <div className="photoslider__sliderWrap" style={{ transform: `translateX(${translateX}px)` }}>
+      <div className="photoslider__slider" ref={sliderRef}>
+        <div className="photoslider__sliderWrap">
+          <div className="photoslider__margin" />
           <div className="photoslider__images">{ images }</div>
+          <div className="photoslider__margin" />
         </div>
       </div>
     </div>
