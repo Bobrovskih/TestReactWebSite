@@ -37,13 +37,17 @@ export default function PhotoSlider() {
 
   const IMAGES_COUNT = imagesSrc.length;
   const IMAGE_SIZE = 320;
-  const IMAGE_IN_VIEWPORT = 4; // TODO 4.5
+  const IMAGE_IN_VIEWPORT = 4.5;
   const IMAGE_PER_MOVE = 2;
+  const MAX_FACTOR = 1;
 
   const MOVE_COUNT = (IMAGES_COUNT - IMAGE_IN_VIEWPORT) / IMAGE_PER_MOVE;
 
   function sliderMove() {
-    setTranslateX(translateX - (IMAGE_SIZE * IMAGE_PER_MOVE));
+    const remain = MOVE_COUNT - moveCount;
+    const factor = Math.min(remain, MAX_FACTOR);
+
+    setTranslateX(translateX - (IMAGE_SIZE * IMAGE_PER_MOVE * factor));
     setMoveCount(moveCount + 1);
   }
 
