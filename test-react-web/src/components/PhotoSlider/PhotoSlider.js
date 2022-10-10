@@ -30,24 +30,30 @@ export default function PhotoSlider() {
     timer = setTimeout(sliderleft, 5000);
   }
   autoslider();
+
+  const imagesSrc = [
+    Photo1,
+    Photo2,
+    Photo3,
+    Photo4,
+    Photo5,
+    Photo6,
+    Photo7,
+    Photo8,
+    Photo9,
+    Photo10,
+    Photo11,
+    Photo12,
+  ];
+
+  const images = imagesSrc.map((src) => (
+    <img className="photoslider__slider__Photo" src={src} alt="" key={src} />
+  ));
+
   return (
     <div className="photoslider">
       <div className="photoslider__header">Lorem ipsum dolor sit amet</div>
-      <div className="photoslider__slider">
-        <img className="photoslider__slider__Photo Photo1" src={Photo1} width="321px" height="490px" alt="photo1" />
-        <img className="photoslider__slider__Photo Photo2" src={Photo2} width="321px" height="490px" alt="photo2" />
-        <img className="photoslider__slider__Photo Photo3" src={Photo3} width="321px" height="490px" alt="photo3" />
-        <img className="photoslider__slider__Photo Photo4" src={Photo4} width="321px" height="490px" alt="photo4" />
-        <img className="photoslider__slider__Photo Photo5" src={Photo5} width="321px" height="490px" alt="photo5" />
-        <img className="photoslider__slider__Photo Photo6" src={Photo6} width="321px" height="490px" alt="photo6" />
-        <img className="photoslider__slider__Photo Photo7" src={Photo7} width="321px" height="490px" alt="photo7" />
-        <img className="photoslider__slider__Photo Photo8" src={Photo8} width="321px" height="490px" alt="photo8" />
-        <img className="photoslider__slider__Photo Photo9" src={Photo9} width="321px" height="490px" alt="photo9" />
-        <img className="photoslider__slider__Photo Photo10" src={Photo10} width="321px" height="490px" alt="photo10" />
-        <img className="photoslider__slider__Photo Photo11" src={Photo11} width="321px" height="490px" alt="photo11" />
-        <img className="photoslider__slider__Photo Photo12" src={Photo12} width="321px" height="490px" alt="photo12" />
-      </div>
-
+      <div className="photoslider__slider">{ images }</div>
     </div>
   );
 }
