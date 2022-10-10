@@ -18,6 +18,7 @@ import Photo12 from './PhotoSlider_img/12-andres-vera-CmmYT6Mm948-unsplash 1 (6)
 export default function PhotoSlider() {
   const [inViewport, setInViewport] = useState(false);
   const [leftPosition, setLeftPosition] = useState(0);
+  const [moveId, setMoveId] = useState(0);
 
   const imagesSrc = [
     Photo1,
@@ -74,23 +75,21 @@ export default function PhotoSlider() {
   useEffect(() => {
     if (inViewport) {
       if (!checkIfScrolled(sliderRef.current)) {
-        setTimeout(() => sliderMove(), 1500);
+        setTimeout(() => setMoveId(moveId + 1), 1500);
       }
     } else {
       scrollSlider(0);
     }
   }, [leftPosition, inViewport]);
 
+  useEffect(() => {
+    sliderMove();
+  }, [moveId]);
+
   return (
     <div className="photoslider">
       <div className="photoslider__header">Lorem ipsum dolor sit amet</div>
-      <div className="photoslider__slider" ref={sliderRef}>
-        <div className="photoslider__sliderWrap">
-          <div className="photoslider__margin" />
-          <div className="photoslider__images">{ images }</div>
-          <div className="photoslider__margin" />
-        </div>
-      </div>
+      <div className="photoslider__slider" ref={sliderRef}>{ images }</div>
     </div>
   );
 }
