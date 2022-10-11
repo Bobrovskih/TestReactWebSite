@@ -18,7 +18,6 @@ import Photo12 from './PhotoSlider_img/12-andres-vera-CmmYT6Mm948-unsplash 1 (6)
 export default function PhotoSlider() {
   const [inViewport, setInViewport] = useState(false);
   const [leftPosition, setLeftPosition] = useState(0);
-  const [moveId, setMoveId] = useState(0);
 
   const imagesSrc = [
     Photo1,
@@ -73,18 +72,18 @@ export default function PhotoSlider() {
   }, []);
 
   useEffect(() => {
+    let timeoutId;
+
     if (inViewport) {
       if (!checkIfScrolled(sliderRef.current)) {
-        setTimeout(() => setMoveId(moveId + 1), 1500);
+        timeoutId = setTimeout(() => sliderMove(), 1500);
       }
     } else {
       scrollSlider(0);
     }
-  }, [leftPosition, inViewport]);
 
-  useEffect(() => {
-    sliderMove();
-  }, [moveId]);
+    return () => clearTimeout(timeoutId);
+  }, [leftPosition, inViewport]);
 
   return (
     <div className="photoslider">
