@@ -69,6 +69,8 @@ export default function PhotoSlider() {
     });
 
     io.observe(sliderRef.current);
+
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
